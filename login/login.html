@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphic Login Page</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Body style */
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        /* Video Background */
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Login Container */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+
+        /* Login Card */
+        .login-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Header */
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            color: #ffffff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .form-header h6 {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .form-header h6 a {
+            color: #00ff00;
+            text-decoration: none;
+        }
+
+        .form-header h6 a:hover {
+            text-decoration: underline;
+        }
+
+        /* Input Group */
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group .form-label {
+            display: block;
+            color: #ffffff;
+            text-align: left;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .input-group .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            padding-right: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .input-group .form-input:focus {
+            outline: none;
+            border-color: #00ff00;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Floating Label */
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 12px 15px;
+            padding-right: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .input-box input:focus {
+            border-color: #00ff00;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #ffffff;
+            font-size: 1rem;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .input-box input:focus ~ label,
+        .input-box input:not(:placeholder-shown) ~ label {
+            top: -10px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: #00ff00;
+        }
+
+        /* Eye Icon */
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        .toggle-password img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #00ff00;
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #00cc00;
+        }
+
+        /* Alerts */
+        .alert {
+            text-align: left;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .alert.alert-danger {
+            color: #dc3545;
+        }
+
+        .alert.alert-success {
+            color: #28a745;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 30px 20px;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background video -->
+    <video autoplay muted loop class="video-bg">
+        <source src="i1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="form-header">
+                <h2>Login</h2>
+                <h6>Don't have an account? <a href="signup.html" class="signup-link">Sign up</a></h6>
+            </div>
+            <form id="loginForm">
+                <div class="input-box">
+                    <input type="email" id="loginemail" required placeholder=" ">
+                    <label for="loginemail">Email address</label>
+                </div>
+
+                <div class="input-box">
+                    <input type="password" id="loginpassword" required placeholder=" ">
+                    <label for="loginpassword">Password</label>
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        <img src="eye.png" alt="Show password" id="toggleIcon">
+                    </button>
+                </div>
+
+                <div class="alert alert-danger" role="alert">
+                    Information must be correct!
+                </div>
+                <div class="alert alert-success" role="alert">
+                    User logged in successfully!
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Function to toggle password visibility
+        function togglePassword() {
+            const passwordField = document.getElementById("loginpassword");
+            const toggleIcon = document.getElementById("toggleIcon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIcon.src = "visible.png"; // Change to visible icon
+            } else {
+                passwordField.type = "password";
+                toggleIcon.src = "eye.png"; // Change back to eye icon
+            }
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const email = document.getElementById("loginemail").value;
+            const password = document.getElementById("loginpassword").value;
+
+            
+            // Example logic to check credentials (replace with your actual check)
+            const storedEmail = localStorage.getItem('userEmail');
+            const storedPassword = localStorage.getItem('userPassword');
+
+            if (email === storedEmail && password === storedPassword) {
+                // Show success alert
+                document.querySelector('.alert-success').style.display = 'block';
+
+                // Redirect to the next page after 1 second
+                setTimeout(() => {
+                    window.location.href = "../index.html";
+                }, 1000);
+            } else {
+                // Show error alert
+                document.querySelector('.alert-danger').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
